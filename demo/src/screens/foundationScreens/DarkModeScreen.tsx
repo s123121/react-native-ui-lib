@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
-import {View, Text, Colors, Constants, SegmentedControl, SchemeType} from 'react-native-ui-lib';
+import {StyleSheet, ScrollView} from 'react-native';
+import {View, Text, Colors, Constants, SegmentedControl, SchemeType, Scheme} from 'react-native-ui-lib';
 
 const SCHEME_TYPES: {label: string; value: SchemeType}[] = [
   {label: 'device (default)', value: 'default'},
@@ -23,6 +23,10 @@ class DarkModeScreen extends Component {
     Colors.setScheme(SCHEME_TYPES[index].value);
   };
 
+  componentDidMount() {
+    Scheme.setScheme(SCHEME_TYPES[0].value);
+  }
+
   render() {
     const {selectedSchemeType} = this.state;
     const message = selectedSchemeType === 'default' ? DEVICE_DARK_MODE_MESSAGE : MANUAL_DARK_MODE_MESSAGE;
@@ -41,6 +45,11 @@ class DarkModeScreen extends Component {
         <Text marginT-s2 body textColor>
           {message}
         </Text>
+        <ScrollView>
+          {Array.from({length: 800}).map((_, index) => (
+            <View padding-5 key={index} bg-screenBG><Text textColor>Test{index}</Text></View>
+          ))}
+        </ScrollView>
 
         <View style={styles.moonOrSun} bg-moonOrSun/>
         <View style={[styles.mountain, styles.mountainBackground]} bg-mountainBackground/>
